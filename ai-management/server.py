@@ -1,4 +1,4 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import base64
 from http import cookies
 import hashlib
@@ -15,10 +15,15 @@ from urllib.parse import unquote, urlparse
 
 BASE_DIR = Path(__file__).resolve().parent
 PUBLIC_DIR = BASE_DIR / "public"
-DB_PATH = BASE_DIR / "app.db"
+DB_PATH = Path(os.environ.get("AI_MANAGEMENT_DB_PATH", BASE_DIR / "app.db")).expanduser()
 SESSION_COOKIE = "ai_management_session"
 SESSION_TTL_SECONDS = 60 * 60 * 8
 MAX_DOCUMENT_SIZE_BYTES = 5 * 1024 * 1024
+SECURE_COOKIE = os.environ.get("AI_MANAGEMENT_SECURE_COOKIE", "0").lower() in {
+    "1",
+    "true",
+    "yes",
+}
 SESSIONS: dict[str, dict] = {}
 ROUTES = {
     "/": "index.html",
@@ -53,13 +58,17 @@ def verify_password(password: str, stored_hash: str) -> bool:
 
 
 def get_db() -> sqlite3.Connection:
-    connection = sqlite3.connect(DB_PATH)
+    connection = sqlite3.connect(DB_PATH, timeout=5)
     connection.row_factory = sqlite3.Row
+    connection.execute("PRAGMA foreign_keys = ON")
+    connection.execute("PRAGMA busy_timeout = 5000")
     return connection
 
 
 def init_db() -> None:
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     with get_db() as connection:
+        connection.execute("PRAGMA journal_mode = WAL")
         connection.execute(
             """
             CREATE TABLE IF NOT EXISTS users (
@@ -125,15 +134,18 @@ class SimpleHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def _set_session_cookie(self, token: str) -> None:
+        secure = "; Secure" if SECURE_COOKIE else ""
         self.send_header(
             "Set-Cookie",
-            f"{SESSION_COOKIE}={token}; HttpOnly; SameSite=Lax; Path=/; Max-Age={SESSION_TTL_SECONDS}",
+            f"{SESSION_COOKIE}={token}; HttpOnly; SameSite=Lax; Path=/; "
+            f"Max-Age={SESSION_TTL_SECONDS}{secure}",
         )
 
     def _clear_session_cookie(self) -> None:
+        secure = "; Secure" if SECURE_COOKIE else ""
         self.send_header(
             "Set-Cookie",
-            f"{SESSION_COOKIE}=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0",
+            f"{SESSION_COOKIE}=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0{secure}",
         )
 
     def _get_session_token(self) -> str | None:
@@ -346,7 +358,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     init_db()
     host = "0.0.0.0"
-    port = 8000
-    server = HTTPServer((host, port), SimpleHandler)
-    print(f"Server started at http://{host}:{port}")
+    port = int(os.environ.get("PORT", "8000"))
+    server = ThreadingHTTPServer((host, port), SimpleHandler)
+    print(f"Server started at http://{host}:{port}; database={DB_PATH}", flush=True)
     server.serve_forever()
