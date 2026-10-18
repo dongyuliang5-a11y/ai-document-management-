@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>设置 - AI Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <a class="brand" href="/"><div class="mark">AI</div><span>AI Management</span></a>
+        <nav aria-label="主导航">
+          <a href="/">总览</a><a href="/models">模型</a><a href="/tasks">任务</a>
+          <a href="/datasets">数据集</a><a href="/monitoring">监控</a><a class="active" href="/settings">设置</a>
+        </nav>
+      </aside>
+      <main>
+        <header class="topbar">
+          <div><h1>系统设置</h1><p class="subtitle">配置团队、访问控制、告警策略和默认运行参数。</p></div>
+          <div class="topbar-actions">
+            <button class="primary" type="button">保存设置</button>
+            <div class="pill">用户 <strong id="currentUser"></strong></div>
+            <button id="logoutButton" type="button">退出</button>
+          </div>
+        </header>
+        <section class="two-col">
+          <div class="panel">
+            <h2>基础配置</h2>
+            <div class="form-grid">
+              <label>工作区名称<input value="AI Management" /></label>
+              <label>默认区域<select><option>华东一区</option><option>华北一区</option><option>美西一区</option></select></label>
+              <label>默认模型<select><option>Orion Chat v2.8</option><option>Report Writer v1.2</option></select></label>
+              <label>日志保留<select><option>30 天</option><option>90 天</option><option>180 天</option></select></label>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>告警策略</h2>
+            <div class="list">
+              <div class="list-item"><span>错误率超过 1%</span><span class="tag ok">启用</span></div>
+              <div class="list-item"><span>P95 延迟超过 500ms</span><span class="tag ok">启用</span></div>
+              <div class="list-item"><span>月度成本超过预算</span><span class="tag warn">仅通知</span></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

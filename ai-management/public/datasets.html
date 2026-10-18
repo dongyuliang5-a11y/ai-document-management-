@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>数据集 - AI Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <a class="brand" href="/"><div class="mark">AI</div><span>AI Management</span></a>
+        <nav aria-label="主导航">
+          <a href="/">总览</a><a href="/models">模型</a><a href="/tasks">任务</a>
+          <a class="active" href="/datasets">数据集</a><a href="/monitoring">监控</a><a href="/settings">设置</a>
+        </nav>
+      </aside>
+      <main>
+        <header class="topbar">
+          <div><h1>数据集</h1><p class="subtitle">管理训练、评测、检索和反馈数据源。</p></div>
+          <div class="topbar-actions">
+            <button class="primary" type="button" onclick="document.getElementById('documentFile')?.click()">上传文档</button>
+            <div class="pill">用户 <strong id="currentUser"></strong></div>
+            <button id="logoutButton" type="button">退出</button>
+          </div>
+        </header>
+        <section class="two-col">
+          <article class="panel">
+            <h2>上传文档</h2>
+            <p>选择一个文档后会直接写入 SQLite 数据库的 <code>documents</code> 表中。</p>
+            <form class="login-form" id="documentUploadForm">
+              <label>
+                文档文件
+                <input id="documentFile" name="document" type="file" required />
+              </label>
+              <p class="form-help">当前限制 5 MB，内容以二进制形式存储在数据库里。</p>
+              <p class="form-error" id="documentUploadError" role="alert"></p>
+              <p class="form-success" id="documentUploadSuccess" role="status"></p>
+              <button class="primary" type="submit">上传到数据库</button>
+            </form>
+          </article>
+          <article class="panel">
+            <h2>存储说明</h2>
+            <p>系统会保存文件名、类型、大小、上传人和上传时间，原始文件内容会写入 <code>BLOB</code> 字段。</p>
+            <div class="list">
+              <div class="list-item"><span>文件名</span><strong>filename</strong></div>
+              <div class="list-item"><span>内容类型</span><strong>content_type</strong></div>
+              <div class="list-item"><span>文件大小</span><strong>size_bytes</strong></div>
+              <div class="list-item"><span>文件内容</span><strong>content</strong></div>
+            </div>
+          </article>
+        </section>
+        <br />
+        <section class="grid">
+          <article class="card"><h3>客服会话样本</h3><p>82,400 条对话，覆盖售前、售后、退款和物流场景。</p></article>
+          <article class="card"><h3>企业知识库</h3><p>1,286 篇文档，已完成分块、清洗和向量化。</p></article>
+          <article class="card"><h3>安全评测集</h3><p>4,800 条红队样本，用于越权、注入和敏感信息测试。</p></article>
+        </section>
+        <br />
+        <section class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>文件名</th><th>类型</th><th>大小</th><th>上传人</th><th>上传时间</th></tr></thead>
+            <tbody id="documentsTableBody">
+              <tr><td colspan="6">正在加载文档记录...</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

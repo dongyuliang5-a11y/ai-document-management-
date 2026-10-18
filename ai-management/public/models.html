@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>模型 - AI Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <a class="brand" href="/"><div class="mark">AI</div><span>AI Management</span></a>
+        <nav aria-label="主导航">
+          <a href="/">总览</a><a class="active" href="/models">模型</a><a href="/tasks">任务</a>
+          <a href="/datasets">数据集</a><a href="/monitoring">监控</a><a href="/settings">设置</a>
+        </nav>
+      </aside>
+      <main>
+        <header class="topbar">
+          <div><h1>模型管理</h1><p class="subtitle">管理模型版本、部署状态、调用成本和能力标签。</p></div>
+          <div class="topbar-actions">
+            <a class="button primary" href="/tasks">创建评测任务</a>
+            <div class="pill">用户 <strong id="currentUser"></strong></div>
+            <button id="logoutButton" type="button">退出</button>
+          </div>
+        </header>
+        <section class="stat-grid">
+          <div class="metric"><span>已部署</span><strong>12</strong></div>
+          <div class="metric"><span>待评测</span><strong>4</strong></div>
+          <div class="metric"><span>平均成功率</span><strong>99.2%</strong></div>
+          <div class="metric"><span>月度成本</span><strong>$8.4k</strong></div>
+        </section>
+        <section class="table-wrap">
+          <table>
+            <thead><tr><th>模型</th><th>用途</th><th>版本</th><th>状态</th><th>延迟</th><th>负责人</th></tr></thead>
+            <tbody>
+              <tr><td>Orion Chat</td><td>客服问答</td><td>v2.8</td><td><span class="tag ok">生产</span></td><td>118ms</td><td>林舟</td></tr>
+              <tr><td>Vector Embed</td><td>知识库检索</td><td>v1.6</td><td><span class="tag ok">生产</span></td><td>42ms</td><td>陈宁</td></tr>
+              <tr><td>Vision Audit</td><td>图片审核</td><td>v0.9</td><td><span class="tag warn">灰度</span></td><td>236ms</td><td>周然</td></tr>
+              <tr><td>Report Writer</td><td>报告生成</td><td>v1.2</td><td><span class="tag">测试</span></td><td>184ms</td><td>王恺</td></tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

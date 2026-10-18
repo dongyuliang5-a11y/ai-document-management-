@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>监控 - AI Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <a class="brand" href="/"><div class="mark">AI</div><span>AI Management</span></a>
+        <nav aria-label="主导航">
+          <a href="/">总览</a><a href="/models">模型</a><a href="/tasks">任务</a>
+          <a href="/datasets">数据集</a><a class="active" href="/monitoring">监控</a><a href="/settings">设置</a>
+        </nav>
+      </aside>
+      <main>
+        <header class="topbar">
+          <div><h1>运行监控</h1><p class="subtitle">观察接口健康、延迟、错误率、吞吐量和告警事件。</p></div>
+          <div class="topbar-actions">
+            <div class="status" id="healthStatus"><span class="dot" id="healthDot"></span><span id="healthText">正在检查服务</span></div>
+            <div class="pill">用户 <strong id="currentUser"></strong></div>
+            <button id="logoutButton" type="button">退出</button>
+          </div>
+        </header>
+        <section class="stat-grid">
+          <div class="metric"><span>可用性</span><strong>99.95%</strong></div>
+          <div class="metric"><span>P95 延迟</span><strong>214ms</strong></div>
+          <div class="metric"><span>错误率</span><strong>0.08%</strong></div>
+          <div class="metric"><span>QPS</span><strong>186</strong></div>
+        </section>
+        <section class="two-col">
+          <div class="panel">
+            <h2>告警事件</h2>
+            <div class="list">
+              <div class="list-item"><span>Vision Audit 延迟高于阈值</span><span class="tag warn">观察中</span></div>
+              <div class="list-item"><span>知识库索引任务完成</span><span class="tag ok">已恢复</span></div>
+              <div class="list-item"><span>Report Writer 测试环境错误率升高</span><span class="tag danger">待处理</span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>资源使用</h2>
+            <div class="list">
+              <div><p>GPU 利用率</p><div class="progress"><span style="width: 68%"></span></div></div>
+              <div><p>CPU 利用率</p><div class="progress"><span style="width: 46%"></span></div></div>
+              <div><p>队列积压</p><div class="progress"><span style="width: 24%"></span></div></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Log In - AI Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="login-page">
+    <main class="login-shell">
+      <section class="login-panel" aria-label="Log in">
+        <a class="brand login-brand" href="/login">
+          <div class="mark">AI</div>
+          <span>AI Management</span>
+        </a>
+        <h1>Log in</h1>
+        <p class="subtitle">Use your account to access the management console.</p>
+
+        <form class="login-form" id="loginForm">
+          <label>
+            Username
+            <input id="username" name="username" autocomplete="username" required />
+          </label>
+          <label>
+            Password
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            />
+          </label>
+          <p class="form-error" id="loginError" role="alert"></p>
+          <button class="primary" type="submit">Log in</button>
+        </form>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

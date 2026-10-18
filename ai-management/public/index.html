@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>总览 - AI Management</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside>
+        <a class="brand" href="/">
+          <div class="mark">AI</div>
+          <span>AI Management</span>
+        </a>
+        <nav aria-label="主导航">
+          <a class="active" href="/">总览</a>
+          <a href="/models">模型</a>
+          <a href="/tasks">任务</a>
+          <a href="/datasets">数据集</a>
+          <a href="/monitoring">监控</a>
+          <a href="/settings">设置</a>
+        </nav>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <h1>AI 管理控制台</h1>
+            <p class="subtitle">集中查看模型、任务、数据集和服务运行状态。</p>
+          </div>
+          <div class="topbar-actions">
+            <div class="status" id="healthStatus">
+              <span class="dot" id="healthDot"></span>
+              <span id="healthText">正在检查服务</span>
+            </div>
+            <div class="pill">用户 <strong id="currentUser"></strong></div>
+            <button id="logoutButton" type="button">退出</button>
+          </div>
+        </header>
+
+        <section class="hero">
+          <div class="overview">
+            <h2>今日运行概览</h2>
+            <p>当前后端服务已接入前端页面。这里可以继续扩展模型管理、任务编排、用量统计和告警监控等模块。</p>
+            <div class="actions">
+              <a class="button primary" href="/tasks">新建任务</a>
+              <a class="button" href="/datasets">导入数据集</a>
+              <a class="button" href="/monitoring">查看日志</a>
+            </div>
+          </div>
+
+          <div class="metrics">
+            <div class="metric"><span>在线模型</span><strong>12</strong></div>
+            <div class="metric"><span>运行任务</span><strong>8</strong></div>
+            <div class="metric"><span>今日请求</span><strong>24.8k</strong></div>
+            <div class="metric"><span>平均延迟</span><strong>126ms</strong></div>
+          </div>
+        </section>
+
+        <section class="grid" aria-label="快捷入口">
+          <article class="card">
+            <h3>模型管理</h3>
+            <p>维护模型版本、部署环境、调用策略和灰度发布状态。</p>
+          </article>
+          <article class="card">
+            <h3>任务中心</h3>
+            <p>跟踪训练、评测、推理和批处理任务的执行进度。</p>
+          </article>
+          <article class="card">
+            <h3>运行监控</h3>
+            <p>查看健康检查、错误率、吞吐量和资源使用趋势。</p>
+          </article>
+        </section>
+      </main>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>
